@@ -1,6 +1,6 @@
 # StenlyUI
 
-> 基于 StencilJS 与 Tailwind 打造的通用组件库，让无框架环境也能轻松驾驭组件开发。
+> 基于 `StencilJS` 与 `Tailwind` 打造的通用组件库，让无框架环境也能轻松驾驭组件开发。
 
 ## 本地开发
 
@@ -30,4 +30,10 @@ pnpm build
 
 ```bash
 pnpm test
+```
+
+运行`storybook`
+
+```bash
+pnpm storybook
 ```
