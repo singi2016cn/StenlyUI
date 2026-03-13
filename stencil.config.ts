@@ -1,11 +1,4 @@
 import { Config } from '@stencil/core';
-import tailwind, { setPluginConfigurationDefaults, tailwindGlobal, tailwindHMR } from 'stencil-tailwind-plugin';
-
-const options = {
-  stripComments: true
-};
-
-setPluginConfigurationDefaults(options);
 
 export const config: Config = {
   namespace: 'stenlyui',
@@ -29,15 +22,5 @@ export const config: Config = {
   ],
   testing: {
     browserHeadless: 'shell',
-  },
-  plugins: [
-    tailwind({
-      tailwindCssPath: './src/input.css',
-    }),
-    tailwindGlobal(),
-    tailwindHMR(),
-  ],
-  devServer: {
-    reloadStrategy: 'pageReload',
-  },
+  }
 };
