@@ -5,7 +5,103 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ButtonSize, ButtonVariant } from "./components/d-button/d-button";
+export { ButtonSize, ButtonVariant } from "./components/d-button/d-button";
 export namespace Components {
+    interface DButton {
+        /**
+          * ARIA 控制的目标元素 ID
+         */
+        "ariaControls"?: string;
+        /**
+          * ARIA 展开状态
+         */
+        "ariaExpanded"?: boolean;
+        /**
+          * 是否隐藏 ARIA 信息
+          * @default false
+         */
+        "ariaHidden": boolean;
+        /**
+          * ARIA 标签（无障碍访问）
+         */
+        "ariaLabel"?: string;
+        /**
+          * ARIA 按下状态
+         */
+        "ariaPressed"?: boolean;
+        /**
+          * 失焦按钮
+         */
+        "blurButton": () => Promise<void>;
+        /**
+          * 按钮 ID
+         */
+        "buttonId"?: string;
+        /**
+          * 按钮标题（tooltip）
+         */
+        "buttonTitle"?: string;
+        /**
+          * 自定义 CSS 类名
+         */
+        "cssClass"?: string;
+        /**
+          * 是否禁用按钮
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * 是否显示省略号
+          * @default false
+         */
+        "ellipsis": boolean;
+        /**
+          * 聚焦按钮
+         */
+        "focusButton": () => Promise<void>;
+        /**
+          * 链接地址（如果提供，将渲染为链接）
+         */
+        "href"?: string;
+        /**
+          * 按钮图标（使用图标名称）
+         */
+        "icon"?: string;
+        /**
+          * 按钮文本标签
+         */
+        "label"?: string;
+        /**
+          * 是否显示加载状态
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * 是否阻止按钮获得焦点
+          * @default false
+         */
+        "preventFocus": boolean;
+        /**
+          * 按钮尺寸
+          * @default 'medium'
+         */
+        "size": ButtonSize;
+        /**
+          * 后缀图标（使用图标名称）
+         */
+        "suffixIcon"?: string;
+        /**
+          * 按钮类型（submit, button, reset）
+          * @default 'button'
+         */
+        "type": 'button' | 'submit' | 'reset';
+        /**
+          * 按钮变体样式
+          * @default 'default'
+         */
+        "variant": ButtonVariant;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -21,7 +117,29 @@ export namespace Components {
         "middle": string;
     }
 }
+export interface DButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDButtonElement;
+}
 declare global {
+    interface HTMLDButtonElementEventMap {
+        "dClick": MouseEvent;
+        "dKeyDown": KeyboardEvent;
+    }
+    interface HTMLDButtonElement extends Components.DButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDButtonElementEventMap>(type: K, listener: (this: HTMLDButtonElement, ev: DButtonCustomEvent<HTMLDButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDButtonElementEventMap>(type: K, listener: (this: HTMLDButtonElement, ev: DButtonCustomEvent<HTMLDButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDButtonElement: {
+        prototype: HTMLDButtonElement;
+        new (): HTMLDButtonElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +147,105 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "d-button": HTMLDButtonElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface DButton {
+        /**
+          * ARIA 控制的目标元素 ID
+         */
+        "ariaControls"?: string;
+        /**
+          * ARIA 展开状态
+         */
+        "ariaExpanded"?: boolean;
+        /**
+          * 是否隐藏 ARIA 信息
+          * @default false
+         */
+        "ariaHidden"?: boolean;
+        /**
+          * ARIA 标签（无障碍访问）
+         */
+        "ariaLabel"?: string;
+        /**
+          * ARIA 按下状态
+         */
+        "ariaPressed"?: boolean;
+        /**
+          * 按钮 ID
+         */
+        "buttonId"?: string;
+        /**
+          * 按钮标题（tooltip）
+         */
+        "buttonTitle"?: string;
+        /**
+          * 自定义 CSS 类名
+         */
+        "cssClass"?: string;
+        /**
+          * 是否禁用按钮
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * 是否显示省略号
+          * @default false
+         */
+        "ellipsis"?: boolean;
+        /**
+          * 链接地址（如果提供，将渲染为链接）
+         */
+        "href"?: string;
+        /**
+          * 按钮图标（使用图标名称）
+         */
+        "icon"?: string;
+        /**
+          * 按钮文本标签
+         */
+        "label"?: string;
+        /**
+          * 是否显示加载状态
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * 点击事件
+         */
+        "onDClick"?: (event: DButtonCustomEvent<MouseEvent>) => void;
+        /**
+          * 键盘按下事件
+         */
+        "onDKeyDown"?: (event: DButtonCustomEvent<KeyboardEvent>) => void;
+        /**
+          * 是否阻止按钮获得焦点
+          * @default false
+         */
+        "preventFocus"?: boolean;
+        /**
+          * 按钮尺寸
+          * @default 'medium'
+         */
+        "size"?: ButtonSize;
+        /**
+          * 后缀图标（使用图标名称）
+         */
+        "suffixIcon"?: string;
+        /**
+          * 按钮类型（submit, button, reset）
+          * @default 'button'
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+        /**
+          * 按钮变体样式
+          * @default 'default'
+         */
+        "variant"?: ButtonVariant;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +261,27 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
 
+    interface DButtonAttributes {
+        "variant": ButtonVariant;
+        "size": ButtonSize;
+        "icon": string;
+        "suffixIcon": string;
+        "label": string;
+        "buttonTitle": string;
+        "disabled": boolean;
+        "loading": boolean;
+        "type": 'button' | 'submit' | 'reset';
+        "href": string;
+        "preventFocus": boolean;
+        "ellipsis": boolean;
+        "ariaLabel": string;
+        "ariaExpanded": boolean;
+        "ariaPressed": boolean;
+        "ariaControls": string;
+        "ariaHidden": boolean;
+        "cssClass": string;
+        "buttonId": string;
+    }
     interface MyComponentAttributes {
         "first": string;
         "middle": string;
@@ -55,6 +289,7 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
+        "d-button": Omit<DButton, keyof DButtonAttributes> & { [K in keyof DButton & keyof DButtonAttributes]?: DButton[K] } & { [K in keyof DButton & keyof DButtonAttributes as `attr:${K}`]?: DButtonAttributes[K] } & { [K in keyof DButton & keyof DButtonAttributes as `prop:${K}`]?: DButton[K] };
         "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
     }
 }
@@ -62,6 +297,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "d-button": LocalJSX.IntrinsicElements["d-button"] & JSXBase.HTMLAttributes<HTMLDButtonElement>;
             "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }

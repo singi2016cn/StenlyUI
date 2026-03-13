@@ -1,0 +1,596 @@
+/* ============================================
+   D-Button Component Styles
+   模仿 Discourse 按钮样式系统
+   ============================================ */
+
+:host {
+  display: inline-block;
+}
+
+/* ============================================
+   CSS 变量定义
+   ============================================ */
+:host {
+  /* 基础变量 */
+  --d-button-border-radius: 4px;
+  --d-button-transition: all 0.2s ease;
+  --d-button-border: 1px solid transparent;
+
+  /* 默认按钮颜色 */
+  --d-button-default-text-color: var(--d-primary, #555555);
+  --d-button-default-text-color--hover: var(--d-secondary, #ffffff);
+  --d-button-default-bg-color: var(--d-primary-low, #e8e8e8);
+  --d-button-default-bg-color--hover: var(--d-primary-medium, #cccccc);
+  --d-button-default-icon-color: var(--d-primary-high, #333333);
+  --d-button-default-icon-color--hover: var(--d-primary-low, #e8e8e8);
+  --d-button-default-border: 1px solid var(--d-primary-low, #e8e8e8);
+  --d-button-default-border--hover: 1px solid var(--d-primary-medium, #cccccc);
+
+  /* 主要按钮颜色 */
+  --d-button-primary-text-color: var(--d-secondary, #ffffff);
+  --d-button-primary-text-color--hover: var(--d-secondary, #ffffff);
+  --d-button-primary-bg-color: var(--d-tertiary, #007bff);
+  --d-button-primary-bg-color--hover: var(--d-tertiary-hover, #0056b3);
+  --d-button-primary-icon-color: var(--d-secondary, #ffffff);
+  --d-button-primary-icon-color--hover: var(--d-secondary, #ffffff);
+  --d-button-primary-border: 1px solid transparent;
+  --d-button-primary-border--hover: 1px solid transparent;
+
+  /* 危险按钮颜色 */
+  --d-button-danger-text-color: var(--d-secondary, #ffffff);
+  --d-button-danger-text-color--hover: var(--d-secondary, #ffffff);
+  --d-button-danger-bg-color: var(--d-danger, #dc3545);
+  --d-button-danger-bg-color--hover: var(--d-danger-hover, #c82333);
+  --d-button-danger-icon-color: var(--d-danger-low, #f8d7da);
+  --d-button-danger-icon-color--hover: var(--d-danger-low, #f8d7da);
+  --d-button-danger-border: 1px solid transparent;
+  --d-button-danger-border--hover: 1px solid transparent;
+
+  /* 成功按钮颜色 */
+  --d-button-success-text-color: var(--d-secondary, #ffffff);
+  --d-button-success-text-color--hover: var(--d-secondary, #ffffff);
+  --d-button-success-bg-color: var(--d-success, #28a745);
+  --d-button-success-bg-color--hover: var(--d-success-hover, #218838);
+  --d-button-success-icon-color: var(--d-success-low, #d4edda);
+  --d-button-success-icon-color--hover: var(--d-success-low, #d4edda);
+  --d-button-success-border: 1px solid transparent;
+  --d-button-success-border--hover: 1px solid transparent;
+
+  /* 扁平按钮颜色 */
+  --d-button-flat-text-color: var(--d-primary, #555555);
+  --d-button-flat-text-color--hover: var(--d-tertiary, #007bff);
+  --d-button-flat-icon-color: var(--d-primary-low-mid, #999999);
+  --d-button-flat-icon-color--hover: var(--d-primary, #555555);
+  --d-button-flat-bg-color: transparent;
+  --d-button-flat-bg-color--hover: rgba(0, 0, 0, 0.05);
+  --d-button-flat-bg-color--focus: rgba(0, 0, 0, 0.05);
+
+  /* 透明按钮颜色 */
+  --d-button-transparent-text-color: var(--d-primary, #555555);
+  --d-button-transparent-text-color--hover: var(--d-tertiary-hover, #0056b3);
+  --d-button-transparent-icon-color: var(--d-primary-high, #333333);
+  --d-button-transparent-icon-color--hover: var(--d-tertiary-hover, #0056b3);
+
+  /* 链接按钮颜色 */
+  --d-button-link-text-color: var(--d-tertiary, #007bff);
+  --d-button-link-text-color--hover: var(--d-tertiary-hover, #0056b3);
+  --d-button-link-icon-color: var(--d-tertiary, #007bff);
+  --d-button-link-icon-color--hover: var(--d-tertiary-hover, #0056b3);
+
+  /* 尺寸变量 */
+  --d-button-vpad: 8px;
+  --d-button-hpad: 16px;
+  --d-button-font-size: 14px;
+  --d-button-small-font-size: 12px;
+  --d-button-large-font-size: 16px;
+}
+
+/* ============================================
+   基础按钮样式
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: var(--d-button-vpad) var(--d-button-hpad);
+  font-size: var(--d-button-font-size);
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+  cursor: pointer;
+  border: var(--d-button-border);
+  border-radius: var(--d-button-border-radius);
+  background-color: var(--d-button-default-bg-color);
+  color: var(--d-button-default-text-color);
+  transition: var(--d-button-transition);
+  background-image: linear-gradient(to bottom, rgb(0 0 0 / 0), rgb(0 0 0 / 0));
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+
+  /* 图标样式 */
+  .d-icon {
+    color: var(--d-button-default-icon-color);
+    transition: var(--d-button-transition);
+  }
+
+  /* 标签 + 图标时的间距 */
+  .d-button-label + .d-icon,
+  .d-button__suffix-icon {
+    margin-left: 0.25em;
+  }
+
+  .d-icon + .d-button-label {
+    margin-left: 0.25em;
+  }
+
+  /* 无文本按钮（仅图标） */
+  &.no-text,
+  &.btn-icon {
+    .d-icon {
+      margin-right: 0;
+    }
+  }
+
+  /* Hover 状态 */
+  &:hover {
+    background-color: var(--d-button-default-bg-color--hover);
+    color: var(--d-button-default-text-color--hover);
+    border-color: var(--d-button-default-border--hover);
+
+    .d-icon {
+      color: var(--d-button-default-icon-color--hover);
+    }
+  }
+
+  /* Focus 状态 */
+  &:focus-visible {
+    outline: 2px solid var(--d-tertiary, #007bff);
+    outline-offset: 2px;
+    background-color: var(--d-button-default-bg-color--hover);
+    color: var(--d-button-default-text-color--hover);
+
+    .d-icon {
+      color: var(--d-button-default-icon-color--hover);
+    }
+  }
+
+  /* 禁用状态 */
+  &[disabled],
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+
+    &:not(.is-loading):hover {
+      color: var(--d-button-default-text-color);
+      background-color: var(--d-button-default-bg-color);
+      border-color: var(--d-button-default-border);
+
+      .d-icon {
+        color: var(--d-button-default-icon-color);
+      }
+    }
+  }
+
+  /* 加载状态 */
+  .loading-container {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 6px;
+  }
+
+  &.is-loading {
+    .loading-icon {
+      animation: rotate-forever 1s infinite linear, fadein 0.3s;
+    }
+
+    &.btn-small {
+      .loading-icon {
+        font-size: 12px;
+        margin-right: 0.2em;
+      }
+    }
+  }
+}
+
+/* ============================================
+   按钮变体
+   ============================================ */
+
+/* 默认按钮 */
+.btn-default {
+  border: var(--d-button-default-border);
+  border-radius: var(--d-button-border-radius);
+  background-color: var(--d-button-default-bg-color);
+  color: var(--d-button-default-text-color);
+
+  &:hover {
+    background-color: var(--d-button-default-bg-color--hover);
+    color: var(--d-button-default-text-color--hover);
+    border-color: var(--d-button-default-border--hover);
+
+    .d-icon {
+      color: var(--d-button-default-icon-color--hover);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--d-tertiary, #007bff);
+    outline-offset: 2px;
+  }
+}
+
+/* 主要按钮 */
+.btn-primary {
+  background-color: var(--d-button-primary-bg-color);
+  color: var(--d-button-primary-text-color);
+  border: var(--d-button-primary-border);
+  border-radius: var(--d-button-border-radius);
+
+  .d-icon {
+    color: var(--d-button-primary-icon-color);
+  }
+
+  &:hover {
+    background-color: var(--d-button-primary-bg-color--hover);
+    color: var(--d-button-primary-text-color--hover);
+    border-color: var(--d-button-primary-border--hover);
+
+    .d-icon {
+      color: var(--d-button-primary-icon-color--hover);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--d-tertiary-hover, #0056b3);
+    outline-offset: 2px;
+  }
+}
+
+/* 危险按钮 */
+.btn-danger {
+  background-color: var(--d-button-danger-bg-color);
+  color: var(--d-button-danger-text-color);
+  border: var(--d-button-danger-border);
+  border-radius: var(--d-button-border-radius);
+
+  .d-icon {
+    color: var(--d-button-danger-icon-color);
+  }
+
+  &:hover {
+    background-color: var(--d-button-danger-bg-color--hover);
+    color: var(--d-button-danger-text-color--hover);
+    border-color: var(--d-button-danger-border--hover);
+
+    .d-icon {
+      color: var(--d-button-danger-icon-color--hover);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--d-danger-hover, #c82333);
+    outline-offset: 2px;
+  }
+}
+
+/* 成功按钮 */
+.btn-success {
+  background-color: var(--d-button-success-bg-color);
+  color: var(--d-button-success-text-color);
+  border: var(--d-button-success-border);
+  border-radius: var(--d-button-border-radius);
+
+  .d-icon {
+    color: var(--d-button-success-icon-color);
+  }
+
+  &:hover {
+    background-color: var(--d-button-success-bg-color--hover);
+    color: var(--d-button-success-text-color--hover);
+    border-color: var(--d-button-success-border--hover);
+
+    .d-icon {
+      color: var(--d-button-success-icon-color--hover);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--d-success-hover, #218838);
+    outline-offset: 2px;
+  }
+}
+
+/* 扁平按钮 */
+.btn-flat {
+  background-color: var(--d-button-flat-bg-color);
+  color: var(--d-button-flat-text-color);
+  border: none;
+
+  .d-icon {
+    color: var(--d-button-flat-icon-color);
+  }
+
+  &:hover {
+    background-color: var(--d-button-flat-bg-color--hover);
+    color: var(--d-button-flat-text-color--hover);
+
+    .d-icon {
+      color: var(--d-button-flat-icon-color--hover);
+    }
+  }
+
+  &:focus-visible {
+    background-color: var(--d-button-flat-bg-color--focus);
+    outline: 2px solid var(--d-tertiary, #007bff);
+    outline-offset: 2px;
+
+    .d-icon {
+      color: var(--d-button-flat-icon-color--hover);
+    }
+  }
+
+  &.close {
+    .d-icon {
+      color: var(--d-primary-high, #333333);
+    }
+
+    &:hover {
+      .d-icon {
+        color: var(--d-primary, #555555);
+      }
+    }
+  }
+}
+
+/* 透明按钮 */
+.btn-transparent {
+  background-color: transparent;
+  color: var(--d-button-transparent-text-color);
+  border: none;
+
+  .d-icon {
+    color: var(--d-button-transparent-icon-color);
+  }
+
+  &:hover {
+    color: var(--d-button-transparent-text-color--hover);
+
+    .d-icon {
+      color: var(--d-button-transparent-icon-color--hover);
+    }
+  }
+
+  &:focus-visible {
+    background-color: transparent;
+    color: var(--d-button-transparent-text-color--hover);
+    outline: 2px solid var(--d-tertiary, #007bff);
+    outline-offset: 2px;
+
+    .d-icon {
+      color: var(--d-button-transparent-icon-color--hover);
+    }
+  }
+
+  &.--primary {
+    color: var(--d-button-primary-bg-color);
+
+    .d-icon {
+      color: currentcolor;
+    }
+
+    &:hover {
+      color: var(--d-button-primary-bg-color--hover);
+    }
+  }
+
+  &.--danger {
+    color: var(--d-button-danger-bg-color);
+
+    .d-icon {
+      color: currentcolor;
+    }
+
+    &:hover {
+      color: var(--d-button-danger-bg-color--hover);
+    }
+  }
+
+  &.--success {
+    color: var(--d-button-success-bg-color);
+
+    .d-icon {
+      color: currentcolor;
+    }
+
+    &:hover {
+      color: var(--d-button-success-bg-color--hover);
+    }
+  }
+
+  &.back-button {
+    margin-bottom: 1em;
+    padding-left: 0;
+  }
+}
+
+/* 链接按钮 */
+.btn-link {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--d-button-link-text-color);
+
+  .d-icon {
+    color: var(--d-button-link-icon-color);
+  }
+
+  &:hover {
+    background-color: transparent;
+    color: var(--d-button-link-text-color--hover);
+
+    .d-icon {
+      color: var(--d-button-link-icon-color--hover);
+    }
+  }
+
+  &:focus-visible {
+    color: var(--d-button-link-text-color);
+    background-color: transparent;
+    outline: 2px solid var(--d-tertiary, #007bff);
+    outline-offset: 2px;
+
+    .d-icon {
+      color: var(--d-button-link-icon-color);
+    }
+  }
+
+  &[disabled],
+  &.disabled {
+    color: var(--d-button-link-text-color);
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background-color: transparent;
+
+      .d-icon {
+        color: inherit;
+      }
+    }
+  }
+}
+
+/* ============================================
+   按钮尺寸
+   ============================================ */
+
+/* 小按钮 */
+.btn-small {
+  font-size: var(--d-button-small-font-size);
+  min-height: 28px;
+  padding: 4px 10px;
+}
+
+/* 中按钮（默认） */
+.btn-medium {
+  font-size: var(--d-button-font-size);
+  min-height: 36px;
+}
+
+/* 大按钮 */
+.btn-large {
+  font-size: var(--d-button-large-font-size);
+  min-height: 44px;
+  padding: 10px 20px;
+}
+
+/* 迷你切换按钮 */
+.btn-mini-toggle {
+  border-radius: var(--d-button-border-radius);
+  padding: 0.4em;
+
+  .d-icon {
+    color: var(--d-primary-medium, #999999);
+  }
+
+  &:hover {
+    .d-icon {
+      color: var(--d-primary, #555555);
+    }
+  }
+}
+
+/* ============================================
+   图标按钮特殊样式
+   ============================================ */
+
+/* 仅图标按钮 */
+.btn-icon {
+  padding: var(--d-button-vpad);
+  min-width: 36px;
+
+  &.btn-small {
+    min-width: 28px;
+    padding: 4px;
+  }
+
+  &.btn-large {
+    min-width: 44px;
+    padding: 10px;
+  }
+
+  .d-icon {
+    margin-right: 0;
+  }
+}
+
+/* 图标 + 文本按钮 */
+.btn-icon-text {
+  .d-icon {
+    margin-right: 6px;
+  }
+
+  .d-button-label + .d-icon {
+    margin-left: 6px;
+    margin-right: 0;
+  }
+}
+
+/* 后缀图标 */
+.d-button__suffix-icon {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+
+  .d-icon {
+    margin-right: 0;
+  }
+}
+
+/* ============================================
+   加载动画
+   ============================================ */
+@keyframes rotate-forever {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loading-icon {
+  display: inline-block;
+}
+
+/* ============================================
+   辅助类
+   ============================================ */
+
+/* 省略号 */
+.btn .d-button-label.ellipsis,
+.btn .d-button-label:has(+ .ellipsis) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px;
+}
+
+/* 禁用状态的 loading 容器 */
+.btn.disabled .loading-container,
+.btn[disabled] .loading-container {
+  opacity: 0.5;
+}

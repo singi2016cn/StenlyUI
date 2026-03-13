@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
 import { h } from '@stencil/core';
-import { MyComponent } from './my-component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta = {
   title: 'MyComponent',
-  component: MyComponent,
+  component: 'my-component',
   parameters: {
     layout: 'centered',
   },
@@ -18,7 +17,7 @@ const meta: Meta<MyComponent> = {
 
 export default meta;
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj;
 
 export const Primary: Story = {
   args: {
