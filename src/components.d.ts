@@ -6,30 +6,17 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ButtonSize, ButtonVariant } from "./components/d-button/d-button";
+import { IconColor, IconSize } from "./components/d-icon/d-icon";
+import { SearchResponse, SearchResult, SearchType, SortOrder } from "./components/full-page-search/full-page-search";
 export { ButtonSize, ButtonVariant } from "./components/d-button/d-button";
+export { IconColor, IconSize } from "./components/d-icon/d-icon";
+export { SearchResponse, SearchResult, SearchType, SortOrder } from "./components/full-page-search/full-page-search";
 export namespace Components {
     interface DButton {
-        /**
-          * ARIA 控制的目标元素 ID
-         */
-        "ariaControls"?: string;
-        /**
-          * ARIA 展开状态
-         */
-        "ariaExpanded"?: boolean;
-        /**
-          * 是否隐藏 ARIA 信息
-          * @default false
-         */
-        "ariaHidden": boolean;
         /**
           * ARIA 标签（无障碍访问）
          */
         "ariaLabel"?: string;
-        /**
-          * ARIA 按下状态
-         */
-        "ariaPressed"?: boolean;
         /**
           * 失焦按钮
          */
@@ -46,6 +33,23 @@ export namespace Components {
           * 自定义 CSS 类名
          */
         "cssClass"?: string;
+        /**
+          * ARIA 控制的目标元素 ID
+         */
+        "dAriaControls": string | undefined;
+        /**
+          * ARIA 展开状态
+         */
+        "dAriaExpanded": boolean | undefined;
+        /**
+          * 是否隐藏 ARIA 信息
+          * @default false
+         */
+        "dAriaHidden": boolean;
+        /**
+          * ARIA 按下状态
+         */
+        "dAriaPressed": boolean | undefined;
         /**
           * 是否禁用按钮
           * @default false
@@ -102,6 +106,190 @@ export namespace Components {
          */
         "variant": ButtonVariant;
     }
+    interface DIcon {
+        /**
+          * 图标颜色
+          * @default 'default'
+         */
+        "color": IconColor;
+        /**
+          * 自定义 CSS 类名
+         */
+        "cssClass"?: string;
+        /**
+          * 是否隐藏图标（用于无障碍）
+          * @default true
+         */
+        "dAriaHidden": boolean;
+        /**
+          * 是否翻转图标（水平）
+          * @default false
+         */
+        "flipH": boolean;
+        /**
+          * 是否翻转图标（垂直）
+          * @default false
+         */
+        "flipV": boolean;
+        /**
+          * 图标标题（用于无障碍访问）
+         */
+        "iconTitle"?: string;
+        /**
+          * 图标名称
+          * @default ''
+         */
+        "name": string;
+        /**
+          * 旋转角度（90 的倍数：90, 180, 270）
+         */
+        "rotate"?: 90 | 180 | 270;
+        /**
+          * 图标尺寸
+          * @default 'md'
+         */
+        "size": IconSize;
+        /**
+          * 是否旋转图标
+          * @default false
+         */
+        "spin": boolean;
+    }
+    interface FullPageSearch {
+        /**
+          * 分类结果
+          * @default []
+         */
+        "categories": SearchResult[];
+        /**
+          * 清除搜索
+         */
+        "clearSearch": () => Promise<void>;
+        /**
+          * 取消全选
+         */
+        "clearSelection": () => Promise<void>;
+        /**
+          * 当前页码
+          * @default 1
+         */
+        "currentPage": number;
+        /**
+          * 是否启用批量选择
+          * @default false
+         */
+        "enableBulkSelect": boolean;
+        /**
+          * 搜索错误信息
+          * @default null
+         */
+        "error": string | null;
+        /**
+          * 聚焦搜索输入框
+         */
+        "focusInput": () => Promise<void>;
+        /**
+          * 加载下一页
+         */
+        "loadMore": () => Promise<void>;
+        /**
+          * 是否正在加载更多
+          * @default false
+         */
+        "loadingMore": boolean;
+        /**
+          * 最小搜索长度
+          * @default 3
+         */
+        "minLength": number;
+        /**
+          * 每页数量
+          * @default 20
+         */
+        "pageSize": number;
+        /**
+          * 设置搜索关键词并执行搜索
+         */
+        "performSearch": (term: string) => Promise<void>;
+        /**
+          * 搜索结果
+          * @default []
+         */
+        "results": SearchResult[];
+        /**
+          * 自定义搜索 API 端点
+         */
+        "searchApiUrl"?: string;
+        /**
+          * 搜索上下文（如分类 ID、标签 ID 等）
+         */
+        "searchContext"?: {
+    type: 'category' | 'tag' | 'user';
+    id: string | number;
+    name: string;
+  };
+        /**
+          * 搜索请求头
+         */
+        "searchHeaders"?: Record<string, string>;
+        /**
+          * 搜索关键词
+          * @default ''
+         */
+        "searchTerm": string;
+        /**
+          * 搜索类型
+          * @default 'default'
+         */
+        "searchType": SearchType;
+        /**
+          * 是否正在搜索
+          * @default false
+         */
+        "searching": boolean;
+        /**
+          * 全选当前页结果
+         */
+        "selectAll": () => Promise<void>;
+        /**
+          * 是否显示高级选项
+          * @default false
+         */
+        "showAdvancedOptions": boolean;
+        /**
+          * 是否显示结果计数
+          * @default true
+         */
+        "showResultCount": boolean;
+        /**
+          * 排序方式
+          * @default 'relevance'
+         */
+        "sortOrder": SortOrder;
+        /**
+          * 标签结果
+          * @default []
+         */
+        "tags": SearchResult[];
+        /**
+          * 切换批量选择模式
+         */
+        "toggleBulkSelect": () => Promise<void>;
+        /**
+          * 选择/取消选择结果
+         */
+        "toggleSelect": (id: string) => Promise<void>;
+        /**
+          * 搜索结果总数
+          * @default 0
+         */
+        "totalResults": number;
+        /**
+          * 用户结果
+          * @default []
+         */
+        "users": SearchResult[];
+    }
     interface MyComponent {
         /**
           * The first name
@@ -120,6 +308,10 @@ export namespace Components {
 export interface DButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDButtonElement;
+}
+export interface FullPageSearchCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFullPageSearchElement;
 }
 declare global {
     interface HTMLDButtonElementEventMap {
@@ -140,6 +332,32 @@ declare global {
         prototype: HTMLDButtonElement;
         new (): HTMLDButtonElement;
     };
+    interface HTMLDIconElement extends Components.DIcon, HTMLStencilElement {
+    }
+    var HTMLDIconElement: {
+        prototype: HTMLDIconElement;
+        new (): HTMLDIconElement;
+    };
+    interface HTMLFullPageSearchElementEventMap {
+        "dSearchChange": { term: string; type: SearchType };
+        "dResultsChange": SearchResponse;
+        "dLoadMore": { page: number };
+        "dBulkSelectChange": { selected: string[] };
+    }
+    interface HTMLFullPageSearchElement extends Components.FullPageSearch, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFullPageSearchElementEventMap>(type: K, listener: (this: HTMLFullPageSearchElement, ev: FullPageSearchCustomEvent<HTMLFullPageSearchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFullPageSearchElementEventMap>(type: K, listener: (this: HTMLFullPageSearchElement, ev: FullPageSearchCustomEvent<HTMLFullPageSearchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFullPageSearchElement: {
+        prototype: HTMLFullPageSearchElement;
+        new (): HTMLFullPageSearchElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -148,32 +366,17 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "d-button": HTMLDButtonElement;
+        "d-icon": HTMLDIconElement;
+        "full-page-search": HTMLFullPageSearchElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
     interface DButton {
         /**
-          * ARIA 控制的目标元素 ID
-         */
-        "ariaControls"?: string;
-        /**
-          * ARIA 展开状态
-         */
-        "ariaExpanded"?: boolean;
-        /**
-          * 是否隐藏 ARIA 信息
-          * @default false
-         */
-        "ariaHidden"?: boolean;
-        /**
           * ARIA 标签（无障碍访问）
          */
         "ariaLabel"?: string;
-        /**
-          * ARIA 按下状态
-         */
-        "ariaPressed"?: boolean;
         /**
           * 按钮 ID
          */
@@ -186,6 +389,23 @@ declare namespace LocalJSX {
           * 自定义 CSS 类名
          */
         "cssClass"?: string;
+        /**
+          * ARIA 控制的目标元素 ID
+         */
+        "dAriaControls"?: string | undefined;
+        /**
+          * ARIA 展开状态
+         */
+        "dAriaExpanded"?: boolean | undefined;
+        /**
+          * 是否隐藏 ARIA 信息
+          * @default false
+         */
+        "dAriaHidden"?: boolean;
+        /**
+          * ARIA 按下状态
+         */
+        "dAriaPressed"?: boolean | undefined;
         /**
           * 是否禁用按钮
           * @default false
@@ -246,6 +466,174 @@ declare namespace LocalJSX {
          */
         "variant"?: ButtonVariant;
     }
+    interface DIcon {
+        /**
+          * 图标颜色
+          * @default 'default'
+         */
+        "color"?: IconColor;
+        /**
+          * 自定义 CSS 类名
+         */
+        "cssClass"?: string;
+        /**
+          * 是否隐藏图标（用于无障碍）
+          * @default true
+         */
+        "dAriaHidden"?: boolean;
+        /**
+          * 是否翻转图标（水平）
+          * @default false
+         */
+        "flipH"?: boolean;
+        /**
+          * 是否翻转图标（垂直）
+          * @default false
+         */
+        "flipV"?: boolean;
+        /**
+          * 图标标题（用于无障碍访问）
+         */
+        "iconTitle"?: string;
+        /**
+          * 图标名称
+          * @default ''
+         */
+        "name"?: string;
+        /**
+          * 旋转角度（90 的倍数：90, 180, 270）
+         */
+        "rotate"?: 90 | 180 | 270;
+        /**
+          * 图标尺寸
+          * @default 'md'
+         */
+        "size"?: IconSize;
+        /**
+          * 是否旋转图标
+          * @default false
+         */
+        "spin"?: boolean;
+    }
+    interface FullPageSearch {
+        /**
+          * 分类结果
+          * @default []
+         */
+        "categories"?: SearchResult[];
+        /**
+          * 当前页码
+          * @default 1
+         */
+        "currentPage"?: number;
+        /**
+          * 是否启用批量选择
+          * @default false
+         */
+        "enableBulkSelect"?: boolean;
+        /**
+          * 搜索错误信息
+          * @default null
+         */
+        "error"?: string | null;
+        /**
+          * 是否正在加载更多
+          * @default false
+         */
+        "loadingMore"?: boolean;
+        /**
+          * 最小搜索长度
+          * @default 3
+         */
+        "minLength"?: number;
+        /**
+          * 批量选择变化时触发
+         */
+        "onDBulkSelectChange"?: (event: FullPageSearchCustomEvent<{ selected: string[] }>) => void;
+        /**
+          * 加载更多内容时触发
+         */
+        "onDLoadMore"?: (event: FullPageSearchCustomEvent<{ page: number }>) => void;
+        /**
+          * 搜索结果变化时触发
+         */
+        "onDResultsChange"?: (event: FullPageSearchCustomEvent<SearchResponse>) => void;
+        /**
+          * 搜索变化时触发
+         */
+        "onDSearchChange"?: (event: FullPageSearchCustomEvent<{ term: string; type: SearchType }>) => void;
+        /**
+          * 每页数量
+          * @default 20
+         */
+        "pageSize"?: number;
+        /**
+          * 搜索结果
+          * @default []
+         */
+        "results"?: SearchResult[];
+        /**
+          * 自定义搜索 API 端点
+         */
+        "searchApiUrl"?: string;
+        /**
+          * 搜索上下文（如分类 ID、标签 ID 等）
+         */
+        "searchContext"?: {
+    type: 'category' | 'tag' | 'user';
+    id: string | number;
+    name: string;
+  };
+        /**
+          * 搜索请求头
+         */
+        "searchHeaders"?: Record<string, string>;
+        /**
+          * 搜索关键词
+          * @default ''
+         */
+        "searchTerm"?: string;
+        /**
+          * 搜索类型
+          * @default 'default'
+         */
+        "searchType"?: SearchType;
+        /**
+          * 是否正在搜索
+          * @default false
+         */
+        "searching"?: boolean;
+        /**
+          * 是否显示高级选项
+          * @default false
+         */
+        "showAdvancedOptions"?: boolean;
+        /**
+          * 是否显示结果计数
+          * @default true
+         */
+        "showResultCount"?: boolean;
+        /**
+          * 排序方式
+          * @default 'relevance'
+         */
+        "sortOrder"?: SortOrder;
+        /**
+          * 标签结果
+          * @default []
+         */
+        "tags"?: SearchResult[];
+        /**
+          * 搜索结果总数
+          * @default 0
+         */
+        "totalResults"?: number;
+        /**
+          * 用户结果
+          * @default []
+         */
+        "users"?: SearchResult[];
+    }
     interface MyComponent {
         /**
           * The first name
@@ -275,12 +663,40 @@ declare namespace LocalJSX {
         "preventFocus": boolean;
         "ellipsis": boolean;
         "ariaLabel": string;
-        "ariaExpanded": boolean;
-        "ariaPressed": boolean;
-        "ariaControls": string;
-        "ariaHidden": boolean;
+        "dAriaExpanded": boolean | undefined;
+        "dAriaPressed": boolean | undefined;
+        "dAriaControls": string | undefined;
+        "dAriaHidden": boolean;
         "cssClass": string;
         "buttonId": string;
+    }
+    interface DIconAttributes {
+        "name": string;
+        "size": IconSize;
+        "color": IconColor;
+        "iconTitle": string;
+        "spin": boolean;
+        "flipH": boolean;
+        "flipV": boolean;
+        "rotate": 90 | 180 | 270;
+        "dAriaHidden": boolean;
+        "cssClass": string;
+    }
+    interface FullPageSearchAttributes {
+        "searchTerm": string;
+        "searchType": SearchType;
+        "sortOrder": SortOrder;
+        "currentPage": number;
+        "pageSize": number;
+        "searching": boolean;
+        "loadingMore": boolean;
+        "totalResults": number;
+        "error": string | null;
+        "minLength": number;
+        "enableBulkSelect": boolean;
+        "showAdvancedOptions": boolean;
+        "showResultCount": boolean;
+        "searchApiUrl": string;
     }
     interface MyComponentAttributes {
         "first": string;
@@ -290,6 +706,8 @@ declare namespace LocalJSX {
 
     interface IntrinsicElements {
         "d-button": Omit<DButton, keyof DButtonAttributes> & { [K in keyof DButton & keyof DButtonAttributes]?: DButton[K] } & { [K in keyof DButton & keyof DButtonAttributes as `attr:${K}`]?: DButtonAttributes[K] } & { [K in keyof DButton & keyof DButtonAttributes as `prop:${K}`]?: DButton[K] };
+        "d-icon": Omit<DIcon, keyof DIconAttributes> & { [K in keyof DIcon & keyof DIconAttributes]?: DIcon[K] } & { [K in keyof DIcon & keyof DIconAttributes as `attr:${K}`]?: DIconAttributes[K] } & { [K in keyof DIcon & keyof DIconAttributes as `prop:${K}`]?: DIcon[K] };
+        "full-page-search": Omit<FullPageSearch, keyof FullPageSearchAttributes> & { [K in keyof FullPageSearch & keyof FullPageSearchAttributes]?: FullPageSearch[K] } & { [K in keyof FullPageSearch & keyof FullPageSearchAttributes as `attr:${K}`]?: FullPageSearchAttributes[K] } & { [K in keyof FullPageSearch & keyof FullPageSearchAttributes as `prop:${K}`]?: FullPageSearch[K] };
         "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
     }
 }
@@ -298,6 +716,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "d-button": LocalJSX.IntrinsicElements["d-button"] & JSXBase.HTMLAttributes<HTMLDButtonElement>;
+            "d-icon": LocalJSX.IntrinsicElements["d-icon"] & JSXBase.HTMLAttributes<HTMLDIconElement>;
+            "full-page-search": LocalJSX.IntrinsicElements["full-page-search"] & JSXBase.HTMLAttributes<HTMLFullPageSearchElement>;
             "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }

@@ -1,0 +1,283 @@
+/* ============================================
+   D-Icon Component Styles
+   模仿 Discourse 图标样式系统
+   ============================================ */
+
+:host {
+  display: inline-block;
+  line-height: 1;
+}
+
+/* ============================================
+   CSS 变量定义
+   ============================================ */
+:host {
+  /* 图标颜色 */
+  --d-icon-default-color: var(--d-primary-high, #333333);
+  --d-icon-primary-color: var(--d-primary, #007bff);
+  --d-icon-secondary-color: var(--d-secondary, #6c757d);
+  --d-icon-tertiary-color: var(--d-tertiary, #17a2b8);
+  --d-icon-success-color: var(--d-success, #28a745);
+  --d-icon-danger-color: var(--d-danger, #dc3545);
+  --d-icon-warning-color: var(--d-warning, #ffc107);
+
+  /* 图标尺寸 */
+  --d-icon-sm-size: 0.875em;
+  --d-icon-md-size: 1em;
+  --d-icon-lg-size: 1.25em;
+  --d-icon-xl-size: 1.5em;
+
+  /* 动画 */
+  --d-icon-spin-duration: 1s;
+}
+
+/* ============================================
+   基础图标样式
+   ============================================ */
+.d-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  color: var(--d-icon-default-color);
+  line-height: 1;
+}
+
+/* SVG 样式 */
+.d-icon-svg {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  fill: currentcolor;
+}
+
+.d-icon-svg svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentcolor;
+}
+
+/* ============================================
+   图标尺寸
+   ============================================ */
+.d-icon-sm {
+  font-size: var(--d-icon-sm-size);
+}
+
+.d-icon-md {
+  font-size: var(--d-icon-md-size);
+}
+
+.d-icon-lg {
+  font-size: var(--d-icon-lg-size);
+}
+
+.d-icon-xl {
+  font-size: var(--d-icon-xl-size);
+}
+
+/* ============================================
+   图标颜色
+   ============================================ */
+.d-icon-default {
+  color: var(--d-icon-default-color);
+}
+
+.d-icon-primary {
+  color: var(--d-icon-primary-color);
+}
+
+.d-icon-secondary {
+  color: var(--d-icon-secondary-color);
+}
+
+.d-icon-tertiary {
+  color: var(--d-icon-tertiary-color);
+}
+
+.d-icon-success {
+  color: var(--d-icon-success-color);
+}
+
+.d-icon-danger {
+  color: var(--d-icon-danger-color);
+}
+
+.d-icon-warning {
+  color: var(--d-icon-warning-color);
+}
+
+/* ============================================
+   Discourse 通知图标颜色状态
+   ============================================ */
+.d-icon.d-icon-d-regular,
+.d-icon.d-icon-d-muted,
+.d-icon.d-icon-d-watching-first,
+.d-icon.d-icon-d-watching-first-post {
+  color: var(--d-primary-high, #333333);
+}
+
+.d-icon.d-icon-d-tracking,
+.d-icon.d-icon-d-unread,
+.d-icon.d-icon-d-watching {
+  color: var(--d-tertiary, #007bff);
+}
+
+/* ============================================
+   旋转动画
+   ============================================ */
+.d-icon-spin {
+  animation: d-icon-spin var(--d-icon-spin-duration) infinite linear;
+}
+
+@keyframes d-icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   翻转
+   ============================================ */
+.d-icon-flip-h {
+  transform: scaleX(-1);
+}
+
+.d-icon-flip-v {
+  transform: scaleY(-1);
+}
+
+/* ============================================
+   旋转角度
+   ============================================ */
+.d-icon-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.d-icon-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.d-icon-rotate-270 {
+  transform: rotate(270deg);
+}
+
+/* ============================================
+   组合变换
+   ============================================ */
+.d-icon-flip-h.d-icon-rotate-90 {
+  transform: scaleX(-1) rotate(90deg);
+}
+
+.d-icon-flip-v.d-icon-rotate-90 {
+  transform: scaleY(-1) rotate(90deg);
+}
+
+/* ============================================
+   按钮和链接中的图标
+   ============================================ */
+.btn .d-icon,
+a .d-icon {
+  transition: color 0.2s ease;
+}
+
+/* ============================================
+   列表中的图标
+   ============================================ */
+.list-group-item .d-icon {
+  margin-right: 0.5em;
+}
+
+/* ============================================
+   表单中的图标
+   ============================================ */
+.input-group .d-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75em;
+  background-color: var(--d-primary-low, #e9ecef);
+  border: 1px solid var(--d-primary-low, #ced4da);
+}
+
+/* ============================================
+   徽章中的图标
+   ============================================ */
+.badge .d-icon {
+  margin-right: 0.25em;
+  font-size: 0.9em;
+}
+
+/* ============================================
+   导航中的图标
+   ============================================ */
+.nav-link .d-icon {
+  margin-right: 0.5em;
+}
+
+/* ============================================
+   下拉菜单中的图标
+   ============================================ */
+.dropdown-item .d-icon {
+  margin-right: 0.75em;
+  width: 1.25em;
+  text-align: center;
+}
+
+/* ============================================
+   工具提示中的图标
+   ============================================ */
+.tooltip .d-icon {
+  vertical-align: text-bottom;
+}
+
+/* ============================================
+   卡片中的图标
+   ============================================ */
+.card .d-icon {
+  display: inline-flex;
+}
+
+/* ============================================
+   表格中的图标
+   ============================================ */
+.table .d-icon {
+  vertical-align: middle;
+}
+
+/* ============================================
+   悬停效果
+   ============================================ */
+.d-icon-hover:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+/* ============================================
+   禁用状态
+   ============================================ */
+.d-icon.disabled,
+.d-icon[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============================================
+   响应式调整
+   ============================================ */
+@media (max-width: 768px) {
+  .d-icon-lg {
+    font-size: 1.125em;
+  }
+
+  .d-icon-xl {
+    font-size: 1.25em;
+  }
+}

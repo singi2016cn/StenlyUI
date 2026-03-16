@@ -1,13 +1,4 @@
-import {
-  Component,
-  Host,
-  h,
-  Prop,
-  Event,
-  EventEmitter,
-  Method,
-  Element,
-} from '@stencil/core';
+import { Component, Host, h, Prop, Event, EventEmitter, Method, Element } from '@stencil/core';
 
 export type ButtonVariant = 'default' | 'primary' | 'danger' | 'success' | 'flat' | 'transparent' | 'link';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -93,22 +84,22 @@ export class DButton {
   /**
    * ARIA 展开状态
    */
-  @Prop() ariaExpanded?: boolean;
+  @Prop() dAriaExpanded: boolean | undefined;
 
   /**
    * ARIA 按下状态
    */
-  @Prop() ariaPressed?: boolean;
+  @Prop() dAriaPressed: boolean | undefined;
 
   /**
    * ARIA 控制的目标元素 ID
    */
-  @Prop() ariaControls?: string;
+  @Prop() dAriaControls: string | undefined;
 
   /**
    * 是否隐藏 ARIA 信息
    */
-  @Prop() ariaHidden = false;
+  @Prop() dAriaHidden = false;
 
   /**
    * 自定义 CSS 类名
@@ -182,12 +173,7 @@ export class DButton {
    * 获取按钮类名
    */
   private getClassNames(): string {
-    const classes = [
-      'btn',
-      `btn-${this.variant}`,
-      `btn-${this.size}`,
-      this.cssClass || '',
-    ];
+    const classes = ['btn', `btn-${this.variant}`, `btn-${this.size}`, this.cssClass || ''];
 
     // 图标按钮
     if (this.icon && !this.label && !this.loading) {
@@ -259,7 +245,7 @@ export class DButton {
         <span class="d-button-label">
           {this.label}
           {this.ellipsis && '…'}
-        </span>
+        </span>,
       );
     } else if (!this.icon && !this.loading) {
       // 零宽空格，确保仅图标按钮的高度与普通按钮一致
@@ -274,7 +260,7 @@ export class DButton {
       content.push(
         <span class="d-button__suffix-icon">
           <d-icon name={this.suffixIcon}></d-icon>
-        </span>
+        </span>,
       );
     }
 
@@ -287,23 +273,23 @@ export class DButton {
     const isDisabled = this.disabled || this.loading;
 
     const commonProps = {
-      class: classNames,
-      title: this.buttonTitle,
+      'class': classNames,
+      'title': this.buttonTitle,
       'aria-label': this.ariaLabel || this.buttonTitle,
-      'aria-expanded': this.ariaExpanded !== undefined ? String(this.ariaExpanded) : undefined,
-      'aria-pressed': this.ariaPressed !== undefined ? String(this.ariaPressed) : undefined,
-      'aria-controls': this.ariaControls,
-      'aria-hidden': this.ariaHidden ? 'true' : undefined,
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
-      onMouseDown: this.handleMouseDown,
+      'aria-expanded': this.dAriaExpanded !== undefined ? String(this.dAriaExpanded) : undefined,
+      'aria-pressed': this.dAriaPressed !== undefined ? String(this.dAriaPressed) : undefined,
+      'aria-controls': this.dAriaControls,
+      'aria-hidden': this.dAriaHidden ? 'true' : undefined,
+      'onFocus': this.handleFocus,
+      'onBlur': this.handleBlur,
+      'onMouseDown': this.handleMouseDown,
     };
 
     if (isLink) {
       return (
         <Host>
           <a
-            ref={(el) => (this.buttonRef = el!)}
+            ref={el => (this.buttonRef = el!)}
             href={isDisabled ? undefined : this.href}
             {...commonProps}
             onClick={this.handleClick}
@@ -319,7 +305,7 @@ export class DButton {
     return (
       <Host>
         <button
-          ref={(el) => (this.buttonRef = el!)}
+          ref={el => (this.buttonRef = el!)}
           type={this.type}
           disabled={isDisabled}
           id={this.buttonId}
